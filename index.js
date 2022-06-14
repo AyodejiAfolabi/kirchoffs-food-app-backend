@@ -16,6 +16,7 @@ app.set('view engine',"ejs")
 let allStudents=[]
 let allTodos=[]
 let lovePercentage=false;
+let PORT= process.env.PORT||4000
 const URL='mongodb+srv://JayFab200:o8o88379502@cluster0.qtfme.mongodb.net/user_tb?retryWrites=true&w=majority';
 
 const cloudinary = require('cloudinary')
@@ -121,36 +122,36 @@ app.get('/reactform',(req,res)=>{
     //         res.redirect("/")
     //     }
     // })})
-    app.get('/love', (req,res)=>{
-res.render('lovecalculator',{lovePercentage})
-    })
+//     app.get('/love', (req,res)=>{
+// res.render('lovecalculator',{lovePercentage})
+//     })
 
-    app.post('/love', (req,res)=>{
-let form = new loveModel(req.body)
-form.save((err)=>{
-   if(err){
-  console.log(`data no gree save`)
-}else{
-let {lover,beloved}=req.body
-let totalLength=(lover.length+beloved.length)/2
-let loverArr=lover.split('')
-let belovedArr=beloved.split('')
-let common=0
-loverArr.forEach(letter1 => {
-    belovedArr.forEach( letter2=>{
-        if(letter1==letter2){
-            common++;
-            lovePercentage=(common/totalLength*100).toFixed(0)
+//     app.post('/love', (req,res)=>{
+// let form = new loveModel(req.body)
+// form.save((err)=>{
+//    if(err){
+//   console.log(`data no gree save`)
+// }else{
+// let {lover,beloved}=req.body
+// let totalLength=(lover.length+beloved.length)/2
+// let loverArr=lover.split('')
+// let belovedArr=beloved.split('')
+// let common=0
+// loverArr.forEach(letter1 => {
+//     belovedArr.forEach( letter2=>{
+//         if(letter1==letter2){
+//             common++;
+//             lovePercentage=(common/totalLength*100).toFixed(0)
             
-        }
-    })
-});
-console.log(common)
- res.redirect("/love");
- }
- })})
+//         }
+//     })
+// });
+// console.log(common)
+//  res.redirect("/love");
+//  }
+//  })})
         
 
-app.listen(4000,()=>{
+app.listen(PORT,()=>{
 	console.log('running on port 4000');
 })
